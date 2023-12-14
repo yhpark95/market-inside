@@ -1,0 +1,9 @@
+spring:
+  mustache:
+    prefix: classpath:/templates/
+    suffix: .mustache
+  mvc:
+    static-path-pattern: /static/**
+  servlet:
+    encoding:
+      force: true

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Input Form</title>
+    <link href="../static/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<h1>Data Entry Form</h1>
+<form id="finalDataForm">
+    {{#totalShipment}}
+        <label for="fromDate">From Date (yyyy-MM-dd):</label>
+        <input id="fromDate" name="fromDate" pattern="\d{4}-\d{2}-\d{2}" required type="date" value="{{fromDate}}">
+
+        <label for="toDate">To Date (yyyy-MM-dd):</label>
+        <input id="toDate" name="toDate" pattern="\d{4}-\d{2}-\d{2}" required type="date" value="{{toDate}}">
+
+        <label for="hsCode">HS Code:</label>
+        <input id="hsCode" name="hsCode" required type="text" value="{{hsCode}}">
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value={{country}}>{{country}}</option>
+            <!-- Add more countries as needed -->
+        </select>
+    {{/totalShipment}}
+
+    <!-- Dropdown (select) for data type names -->
+    <label for="dataTypeId">Data Type:</label>
+    <select id="dataTypeId" name="dataTypeId">
+        {{#response}}
+            <option value="{{dataAvalibiltyId}}">{{directionDataType}}</option>
+        {{/response}}
+    </select>
+
+    <input type="submit" value="Submit">
+</form>
+</body>
+<script defer src="../static/totalShipmentScript.js"></script>
+</html>
