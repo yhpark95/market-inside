@@ -7,3 +7,5 @@ spring:
   servlet:
     encoding:
       force: true
+  codec:
+    max-in-memory-size: 10MB

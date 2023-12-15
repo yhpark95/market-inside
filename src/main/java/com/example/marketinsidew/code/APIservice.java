@@ -40,7 +40,10 @@ public class APIservice {
 			.searchBy("")
 			.filter(conditionFilter)
 			.build();
-		return WebClient.create()
+		WebClient webClient = WebClient.builder()
+			.codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(100 * 1024 * 1024))
+			.build();
+		return webClient
 			.post()
 			.uri(Constants.TOTAL_SHIPMENT_URL)
 			.headers(header -> {
@@ -83,7 +86,10 @@ public class APIservice {
 			.page(1)
 			.filter(conditionFilter)
 			.build();
-		ServerResultView.ResultViewResponse response = WebClient.create()
+		WebClient webClient = WebClient.builder()
+			.codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024))
+			.build();
+		ServerResultView.ResultViewResponse response = webClient
 			.post()
 			.uri(Constants.RESULT_VIEW_URL)
 			.headers(header -> {
