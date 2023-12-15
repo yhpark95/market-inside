@@ -6,7 +6,8 @@ document.getElementById('downloadData').addEventListener('click', function () {
         toDate: document.getElementById('toDate').value,
         hsCode: document.getElementById('hsCode').value,
         country: document.getElementById('country').value,
-        dataTypeId: document.getElementById('dataTypeId').value
+        dataTypeId: document.getElementById('dataTypeId').value,
+        importExport: document.getElementById('importExport').value
     };
 
     // Convert form data to JSON

@@ -14,10 +14,11 @@ public class TotalShipmentRequest {
 	private String countryId;
 	private String dataTypeId;
 	private String totalShipmentValue;
+	private String importExport;
 
 	@Builder
 	public TotalShipmentRequest(String toDate, String fromDate, String hsCode, String country, String countryId,
-		String dataTypeId, String totalShipmentValue) {
+		String dataTypeId, String totalShipmentValue, String importExport) {
 		this.toDate = toDate;
 		this.fromDate = fromDate;
 		this.hsCode = hsCode;
@@ -25,5 +26,6 @@ public class TotalShipmentRequest {
 		this.countryId = countryId;
 		this.dataTypeId = dataTypeId;
 		this.totalShipmentValue = totalShipmentValue;
+		this.importExport = importExport;
 	}
 }

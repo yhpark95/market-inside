@@ -75,7 +75,12 @@ public class APIservice {
 	public void download(TotalShipmentRequest request) throws IOException {
 		ConditionFilter conditionFilter = new ConditionFilter();
 		conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
-		List<ResultViewRequest.ResultViewDisplay> list = createResultViewDisplay();
+		List<ResultViewRequest.ResultViewDisplay> list;
+		if (request.getImportExport().charAt(0) == 'I') {
+			list = createImportResultViewDisplay();
+		} else {
+			list = createExportResultViewDisplay();
+		}
 		ResultViewRequest resultViewRequest = ResultViewRequest.builder()
 			.resultViewDisplay(list)
 			.row(Integer.parseInt(request.getTotalShipmentValue()))
@@ -106,7 +111,7 @@ public class APIservice {
 		System.out.println(0);
 	}
 
-	private List<ResultViewRequest.ResultViewDisplay> createResultViewDisplay() {
+	private List<ResultViewRequest.ResultViewDisplay> createImportResultViewDisplay() {
 		List<ResultViewRequest.ResultViewDisplay> list = new ArrayList<>();
 		list.add(new ResultViewRequest.ResultViewDisplay("Date", "date"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Supplier", "supplier"));
@@ -114,9 +119,32 @@ public class APIservice {
 		list.add(new ResultViewRequest.ResultViewDisplay("Origin Country", "origin_country"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Export Country", "export_country"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Product Description", "product_description"));
-		list.add(new ResultViewRequest.ResultViewDisplay("Unit", "unit"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Total Value Usd", "total_value_usd"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Quantity", "quantity"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Unit", "unit"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Net Weight Kg", "net_weight_kg"));
+		list.add(new ResultViewRequest.ResultViewDisplay("UNIT VALUE USD", "unit_value_usd"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Usd Kg", "usd_kg"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Delivery Terms", "delivery_terms"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Hs Code", "hs_code"));
+		return list;
+	}
+
+	private List<ResultViewRequest.ResultViewDisplay> createExportResultViewDisplay() {
+		List<ResultViewRequest.ResultViewDisplay> list = new ArrayList<>();
+		list.add(new ResultViewRequest.ResultViewDisplay("Date", "date"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Exporter", "exporter"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Buyer", "buyer"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Origin Country", "origin_country"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Export Country", "export_country"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Destination Country", "destination_country"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Product Description", "product_description"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Total Value Usd", "total_value_usd"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Quantity", "quantity"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Unit", "unit"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Net Weight", "net_weight"));
+		list.add(new ResultViewRequest.ResultViewDisplay("UNIT VALUE USD", "unit_value_usd"));
+		list.add(new ResultViewRequest.ResultViewDisplay("USD KG", "usd_kg"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Hs Code", "hs_code"));
 		return list;
 	}
