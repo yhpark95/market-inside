@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ResultViewRequest {
 	private final List<String> resultViewDetail = new ArrayList<>();
 	private String dataAvailabilityId;
-	private List<ResultViewDisplay> resultViewDisplay;
+	private List<ResultViewDisplay> resultViewDisplay = new ArrayList<>();
 	private String heading;
 	private int row;
 	private int page;

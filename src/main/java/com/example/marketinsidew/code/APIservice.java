@@ -30,7 +30,11 @@ public class APIservice {
 
 	public TotalShipmentResponse getTotalShipment(TotalShipmentRequest request) {
 		ConditionFilter conditionFilter = new ConditionFilter();
-		conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		if (request.getHsCode().equals("0")) {
+			conditionFilter.getAnd().add(new KeyValue("importer", "sakai chemical vietnam"));
+		} else {
+			conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		}
 		ClientTotalShipmentRequest totalShipmentRequest = ClientTotalShipmentRequest.builder()
 			.dataAvailabilityId(request.getDataTypeId())
 			.sumOn("Total_Value_USD")
@@ -74,7 +78,11 @@ public class APIservice {
 
 	public void download(TotalShipmentRequest request) throws IOException {
 		ConditionFilter conditionFilter = new ConditionFilter();
-		conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		if (request.getHsCode().equals("0")) {
+			conditionFilter.getAnd().add(new KeyValue("importer", "sakai chemical vietnam"));
+		} else {
+			conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		}
 		List<ResultViewRequest.ResultViewDisplay> list;
 		if (request.getImportExport().charAt(0) == 'I') {
 			list = createImportResultViewDisplay();
@@ -94,6 +102,17 @@ public class APIservice {
 		WebClient webClient = WebClient.builder()
 			.codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024))
 			.build();
+		Object response1 = webClient
+			.post()
+			.uri(Constants.RESULT_VIEW_URL)
+			.headers(header -> {
+				header.setBearerAuth(Constants.TOKEN);
+				header.setContentType(MediaType.APPLICATION_JSON);
+				header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+				header.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
+			})
+			.bodyValue(resultViewRequest)
+			.retrieve();
 		ServerResultView.ResultViewResponse response = webClient
 			.post()
 			.uri(Constants.RESULT_VIEW_URL)
@@ -107,7 +126,7 @@ public class APIservice {
 			.retrieve()
 			.bodyToMono(ServerResultView.class)
 			.block().getResponseData();
-		converter.convert(response.getResult());
+		converter.convert(response.getResult(), request);
 		System.out.println(0);
 	}
 
@@ -143,6 +162,7 @@ public class APIservice {
 		list.add(new ResultViewRequest.ResultViewDisplay("Quantity", "quantity"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Unit", "unit"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Net Weight", "net_weight"));
+		list.add(new ResultViewRequest.ResultViewDisplay("Net Weight Kg", "net_weight_kg"));
 		list.add(new ResultViewRequest.ResultViewDisplay("UNIT VALUE USD", "unit_value_usd"));
 		list.add(new ResultViewRequest.ResultViewDisplay("USD KG", "usd_kg"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Hs Code", "hs_code"));

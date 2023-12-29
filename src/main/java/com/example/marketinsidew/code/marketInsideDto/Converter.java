@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,18 +12,21 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.stereotype.Service;
 
+import com.example.marketinsidew.code.TotalShipmentRequest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class Converter {
-	public void convert(String jsonData) throws IOException {
+	public void convert(String jsonData, TotalShipmentRequest request) throws IOException {
 		String csvFilePath = "C:\\Users\\yh945\\OneDrive\\문서\\Codesquad\\market-inside-w\\src\\main\\resources\\files\\";
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode jsonNode = objectMapper.readTree(jsonData);
 
 		// Prepare CSV output
-		FileWriter out = new FileWriter(csvFilePath + UUID.randomUUID() + ".csv");
+		FileWriter out = new FileWriter(
+			csvFilePath + request.getFromDate() + "_" + request.getToDate() + "_" + request.getCountry() + "_"
+				+ request.getHsCode() + ".csv");
 
 		// Create a list for headers from the first JSON object
 		List<String> headers = new ArrayList<>();
