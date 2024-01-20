@@ -8,7 +8,9 @@ document.getElementById('dataForm').addEventListener('submit', function (e) {
         toDate: document.getElementById('toDate').value,
         hsCode: document.getElementById('hsCode').value,
         country: document.getElementById('country').options[document.getElementById('country').selectedIndex].text,
-        countryId: document.getElementById('country').value
+        countryId: document.getElementById('country').value,
+        importer: document.getElementById('importer').value,
+        supplier: document.getElementById('supplier').value
     };
 
     // Convert form data to JSON

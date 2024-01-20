@@ -30,10 +30,14 @@ public class APIservice {
 
 	public TotalShipmentResponse getTotalShipment(TotalShipmentRequest request) {
 		ConditionFilter conditionFilter = new ConditionFilter();
-		if (request.getHsCode().equals("0")) {
-			conditionFilter.getAnd().add(new KeyValue("importer", "sakai chemical vietnam"));
-		} else {
+		if (!request.getHsCode().isEmpty()) {
 			conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		}
+		if (!request.getImporter().isEmpty()) {
+			conditionFilter.getAnd().add(new KeyValue("importer", request.getImporter()));
+		}
+		if (!request.getSupplier().isEmpty()) {
+			conditionFilter.getAnd().add(new KeyValue("supplier", request.getSupplier()));
 		}
 		ClientTotalShipmentRequest totalShipmentRequest = ClientTotalShipmentRequest.builder()
 			.dataAvailabilityId(request.getDataTypeId())
@@ -78,10 +82,14 @@ public class APIservice {
 
 	public void download(TotalShipmentRequest request) throws IOException {
 		ConditionFilter conditionFilter = new ConditionFilter();
-		if (request.getHsCode().equals("0")) {
-			conditionFilter.getAnd().add(new KeyValue("importer", "sakai chemical vietnam"));
-		} else {
+		if (!request.getHsCode().isEmpty()) {
 			conditionFilter.getAnd().add(new KeyValue("hs_code", request.getHsCode()));
+		}
+		if (!request.getImporter().isEmpty()) {
+			conditionFilter.getAnd().add(new KeyValue("importer", request.getImporter()));
+		}
+		if (!request.getSupplier().isEmpty()) {
+			conditionFilter.getAnd().add(new KeyValue("supplier", request.getSupplier()));
 		}
 		List<ResultViewRequest.ResultViewDisplay> list;
 		if (request.getImportExport().charAt(0) == 'I') {
@@ -146,6 +154,9 @@ public class APIservice {
 		list.add(new ResultViewRequest.ResultViewDisplay("Usd Kg", "usd_kg"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Delivery Terms", "delivery_terms"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Hs Code", "hs_code"));
+		list.add(new ResultViewRequest.ResultViewDisplay("IMPORTER CODE", "importer_code"));
+		list.add(new ResultViewRequest.ResultViewDisplay("UNIT PRICE USD", "unit_price_usd"));
+		list.add(new ResultViewRequest.ResultViewDisplay("CONDITION OF GOODS DELIVERY", "condition_of_goods_delivery"));
 		return list;
 	}
 
@@ -166,6 +177,8 @@ public class APIservice {
 		list.add(new ResultViewRequest.ResultViewDisplay("UNIT VALUE USD", "unit_value_usd"));
 		list.add(new ResultViewRequest.ResultViewDisplay("USD KG", "usd_kg"));
 		list.add(new ResultViewRequest.ResultViewDisplay("Hs Code", "hs_code"));
+		list.add(new ResultViewRequest.ResultViewDisplay("unit price usd", "unit_price_usd"));
+		list.add(new ResultViewRequest.ResultViewDisplay("condition of goods delivery", "condition_of_goods_delivery"));
 		return list;
 	}
 }

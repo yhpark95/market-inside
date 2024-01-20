@@ -15,13 +15,17 @@
         <input id="toDate" name="toDate" pattern="\d{4}-\d{2}-\d{2}" required type="date" value="{{toDate}}">
 
         <label for="hsCode">HS Code:</label>
-        <input id="hsCode" name="hsCode" required type="text" value="{{hsCode}}">
+        <input id="hsCode" name="hsCode" type="text" value="{{hsCode}}">
 
         <label for="country">Country:</label>
         <select id="country" name="country">
             <option value={{country}}>{{country}}</option>
             <!-- Add more countries as needed -->
         </select>
+        <label for="importer">Importer:</label>
+        <input id="importer" name="importer" type="text" value="{{importer}}">
+        <label for="supplier">Supplier:</label>
+        <input id="supplier" name="supplier" type="text" value="{{supplier}}">
     {{/totalShipment}}
 
     <!-- Dropdown (select) for data type names -->

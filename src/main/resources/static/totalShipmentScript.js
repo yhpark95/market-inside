@@ -6,7 +6,9 @@ document.getElementById('finalDataForm').addEventListener('submit', function (e)
         hsCode: document.getElementById('hsCode').value,
         country: document.getElementById('country').value,
         dataTypeId: document.getElementById('dataTypeId').value,
-        importExport: document.getElementById('dataTypeId').options[document.getElementById('dataTypeId').selectedIndex].text
+        importExport: document.getElementById('dataTypeId').options[document.getElementById('dataTypeId').selectedIndex].text,
+        importer: document.getElementById('importer').value,
+        supplier: document.getElementById('supplier').value
     };
 
     // Convert form data to JSON
